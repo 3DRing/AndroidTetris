@@ -1,4 +1,4 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innapolis.androidtutors.androidtetris;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innapolis.androidtutors.androidtetris;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.innopolis.androidtutors.androidtetris", appContext.getPackageName());
+        assertEquals("com.innapolis.androidtutors.androidtetris", appContext.getPackageName());
     }
 }
