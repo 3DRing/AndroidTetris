@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
  * Created by Сергей on 30.09.2016.
  */
 
-public class BaseFiguresTest {
+public class FiguresTest {
 
     @Test
     public void baseFigureStatesTest(){
@@ -80,5 +80,23 @@ public class BaseFiguresTest {
         assertTrue(simpleFigure.getWidth() == 1);
         assertTrue(simpleFigure.getBlockState(0,0));
         assertTrue(simpleFigure.toString().equals("#"));
+    }
+
+    @Test
+    public void tFigureStateTest(){
+        BaseFigure simpleFigure = new TFigure();
+
+        assertTrue(simpleFigure.getHeight() == 3);
+        assertTrue(simpleFigure.getWidth() == 3);
+        assertTrue(simpleFigure.getBlockState(0,0));
+        assertTrue(simpleFigure.getBlockState(0,1));
+        assertTrue(simpleFigure.getBlockState(0,2));
+        assertFalse(simpleFigure.getBlockState(1,0));
+        assertTrue(simpleFigure.getBlockState(1,1));
+        assertFalse(simpleFigure.getBlockState(1,2));
+        assertFalse(simpleFigure.getBlockState(2,0));
+        assertTrue(simpleFigure.getBlockState(2,1));
+        assertFalse(simpleFigure.getBlockState(2,2));
+        assertTrue(simpleFigure.toString().equals("###\n_#_\n_#_"));
     }
 }

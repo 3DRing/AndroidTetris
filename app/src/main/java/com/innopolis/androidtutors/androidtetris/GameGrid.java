@@ -12,11 +12,13 @@ public class GameGrid {
     private FigureChecker checker;
     private BaseFigure crtFigure;
     private Point crtFigurePosition;
+    private CELL_STATE figureCellState;
 
     public GameGrid(int height, int width){
         initializeCellStates(height, width);
         initializeDefaultChecker();
 
+        figureCellState = CELL_STATE.BLOCK; // default, can be changed
         crtFigure = null;
     }
 
@@ -45,6 +47,10 @@ public class GameGrid {
     }
 
     private void initializeCellStates(int height, int width){
+        if(height <= 0 || width <= 0){
+            throw new IllegalArgumentException("width and height must be greater than 0. Now height = " + height
+                                                                                        +  ", width = " + width);
+        }
         state = new CELL_STATE[height][width];
 
         for (int i = 0; i < state.length; i++) {
@@ -103,7 +109,7 @@ public class GameGrid {
 
         int offsetX = figurePositionX;
 
-        int offsetY = crtFigure.getHeight() - figurePositionY; // offset to the left bottom block of the Figure
+        int offsetY = (crtFigure.getHeight() - 1) - figurePositionY; // offset to the left bottom block of the Figure
 
         return new Point(crtFigurePosition.getX() + offsetX, crtFigurePosition.getY() - offsetY);
     }
@@ -119,9 +125,11 @@ public class GameGrid {
         return newArray;
     }
 
-    public CELL_STATE[][] getStatesAndFigure(){
+    public CELL_STATE[][] getStatesAndFigure() {
         CELL_STATE[][] result = fullCopyCellState(state);
-        mergeFigureToState(result, CELL_STATE.BLOCK);       // TODO possible to change CELL_STATE only for figure
+        if (crtFigure != null){
+            mergeFigureToState(result, figureCellState);
+        }
         return result;
     }
 
@@ -129,6 +137,16 @@ public class GameGrid {
         for (int i = 0; i < crtFigure.getHeight(); i++) {
             for (int j = 0; j < crtFigure.getWidth(); j++) {
                 Point globalBlockPosition = getGridPositionByFigurePosition(j, i);
+
+                // might be rewritten without exceptions:
+                // in this case we have to ignore positions that are out of the grid
+                if(globalBlockPosition.getX() < 0 || globalBlockPosition.getX() >= getWidth()){
+                    throw new IllegalStateException("Figure is partially out of grid. Problem might be in class Checker");
+                }
+                if(globalBlockPosition.getY() < 0 || globalBlockPosition.getY() >= getHeight()){
+                    throw new IllegalStateException("Figure is partially out of grid. Problem might be in class Checker");
+                }
+
                 boolean blockState = crtFigure.getBlockState(i, j);
                 state[globalBlockPosition.getY()][globalBlockPosition.getX()] = blockState ? stateForBlock : CELL_STATE.EMPTY;
             }
@@ -139,7 +157,34 @@ public class GameGrid {
         mergeFigureToState(state, CELL_STATE.BLOCK);
     }
 
-    public class Point{
+    public int getHeight() {
+        return state.length;
+    }
+
+    public int getWidth() {
+        return state[0].length;
+    }
+
+    public CELL_STATE getFigureCellState() {
+        return figureCellState;
+    }
+
+    @Override
+    public String toString() {
+        CELL_STATE[][] withFigure = getStatesAndFigure();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.getHeight(); i++) {
+            for (int j = 0; j < this.getWidth(); j++) {
+                sb.append(withFigure[i][j] == CELL_STATE.EMPTY ? "_" : "#");
+            }
+            if(i < this.getHeight() - 1) {
+                sb.append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
+    public static class Point{
         private int x;
         private int y;
 

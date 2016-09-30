@@ -44,11 +44,11 @@ public abstract class BaseFigure {
      */
     public boolean getBlockState(int localHeightPosition, int localWidthPosition){
         if(localWidthPosition < 0 || localWidthPosition > getWidth() - 1){
-            throw new IllegalArgumentException("localWidthPosition must be less then width of figure (and not less then 0). Now width = "
+            throw new IllegalArgumentException("localWidthPosition must be less than width of figure (and not less than 0). Now width = "
                                                 + getWidth() + ", localWidthPosition = " + localWidthPosition);
         }
         if(localHeightPosition < 0 || localHeightPosition > getHeight() - 1){
-            throw new IllegalArgumentException("localHeightPosition must be less then height of figure (and not less then 0). Now height = "
+            throw new IllegalArgumentException("localHeightPosition must be less than height of figure (and not less than 0). Now height = "
                     + getHeight() + ", localHeightPosition = " + localHeightPosition);
         }
         return blocks[localHeightPosition][localWidthPosition];
