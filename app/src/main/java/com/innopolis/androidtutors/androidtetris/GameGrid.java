@@ -7,7 +7,7 @@ package com.innopolis.androidtutors.androidtetris;
  * Created by Сергей on 30.09.2016.
  */
 
-public class GameGrid {
+public class GameGrid implements Grid{
 
     private CELL_STATE[][] state;       /** keeps static states of all cells (moving figure is not included) */
     private FigureChecker checker;
@@ -26,27 +26,27 @@ public class GameGrid {
     private void initializeDefaultChecker() {
         checker = new FigureChecker() {
             @Override
-            public boolean end(GameGrid grid, BaseFigure figure, Point figurePosition) {
+            public boolean end(Grid grid, BaseFigure figure, Point figurePosition) {
                 return false;
             }
 
             @Override
-            public boolean outLeft(GameGrid grid, BaseFigure figure, Point figurePosition) {
+            public boolean outLeft(Grid grid, BaseFigure figure, Point figurePosition) {
                 return false;
             }
 
             @Override
-            public boolean outRight(GameGrid grid, BaseFigure figure, Point figurePosition) {
+            public boolean outRight(Grid grid, BaseFigure figure, Point figurePosition) {
                 return false;
             }
 
             @Override
-            public boolean landed(GameGrid grid, BaseFigure figure, Point figurePosition) {
+            public boolean landed(Grid grid, BaseFigure figure, Point figurePosition) {
                 return false;
             }
 
             @Override
-            public int[] canBeErased(GameGrid grid) {
+            public int[] canBeErased(Grid grid) {
                 return new int[0];
             }
         };
@@ -209,6 +209,11 @@ public class GameGrid {
 
     public int getHeight() {
         return state.length;
+    }
+
+    @Override
+    public CELL_STATE getState(int positionX, int positionY) {
+        return state[positionY][positionX];
     }
 
     public int getWidth() {

@@ -124,27 +124,27 @@ public class GameGridTest {
         GameGrid grid = new GameGrid(4,4);
         grid.setChecker(new FigureChecker() {
             @Override
-            public boolean end(GameGrid grid, BaseFigure figure, GameGrid.Point figurePosition) {
+            public boolean end(Grid grid, BaseFigure figure, GameGrid.Point figurePosition) {
                 return false;
             }
 
             @Override
-            public boolean outLeft(GameGrid grid, BaseFigure figure, GameGrid.Point figurePosition) {
+            public boolean outLeft(Grid grid, BaseFigure figure, GameGrid.Point figurePosition) {
                 return false;
             }
 
             @Override
-            public boolean outRight(GameGrid grid, BaseFigure figure, GameGrid.Point figurePosition) {
+            public boolean outRight(Grid grid, BaseFigure figure, GameGrid.Point figurePosition) {
                 return false;
             }
 
             @Override
-            public boolean landed(GameGrid grid, BaseFigure figure, GameGrid.Point figurePosition) {
+            public boolean landed(Grid grid, BaseFigure figure, GameGrid.Point figurePosition) {
                 return true;
             }
 
             @Override
-            public int[] canBeErased(GameGrid grid) {
+            public int[] canBeErased(Grid grid) {
                 return new int[0];
             }
         });
