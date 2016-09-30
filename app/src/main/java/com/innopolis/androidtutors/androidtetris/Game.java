@@ -1,5 +1,10 @@
 package com.innopolis.androidtutors.androidtetris;
 
+import com.innopolis.androidtutors.androidtetris.grid_mechanics.FigureChecker;
+import com.innopolis.androidtutors.androidtetris.grid_mechanics.GameGrid;
+import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
+import com.innopolis.androidtutors.androidtetris.representation.UIGrid;
+
 /**
  * Created by Сергей on 30.09.2016.
  */
@@ -7,15 +12,14 @@ package com.innopolis.androidtutors.androidtetris;
 public class Game {
 
     private TestTimer timer;
-    private UIGrid grid;
+    private UIGrid uiGrid;
 
     private FigureGenerator generator;
-    private CELL_STATE[] crtState;
+    private GameGrid grid;
 
-    private FigureChecker checker;
-
-    public Game(UIGrid grid){
-        this.grid = grid;
+    public Game(UIGrid uiGrid, FigureGenerator generator){
+        this.uiGrid = uiGrid;
+        this.generator = generator;
         this.timer = new TestTimer();
         timer.setTickListener(new TestTimer.TickListener() {
             @Override

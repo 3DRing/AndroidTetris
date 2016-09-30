@@ -1,5 +1,9 @@
 package com.innopolis.androidtutors.androidtetris;
 
+import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
+import com.innopolis.androidtutors.androidtetris.geometry.SimpleFigure;
+import com.innopolis.androidtutors.androidtetris.geometry.TFigure;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

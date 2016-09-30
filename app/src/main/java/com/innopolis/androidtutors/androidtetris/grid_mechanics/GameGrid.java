@@ -1,4 +1,7 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.grid_mechanics;
+
+import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
+import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 
 /**
  * Class that responsible for mechanic of building blocks
@@ -7,7 +10,7 @@ package com.innopolis.androidtutors.androidtetris;
  * Created by Сергей on 30.09.2016.
  */
 
-public class GameGrid implements Grid{
+public class GameGrid implements Grid {
 
     private CELL_STATE[][] state;       /** keeps static states of all cells (moving figure is not included) */
     private FigureChecker checker;

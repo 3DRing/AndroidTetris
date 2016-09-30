@@ -1,4 +1,6 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.geometry;
+
+import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 
 /**
  * Base class for figures

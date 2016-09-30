@@ -1,4 +1,6 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.geometry;
+
+import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
 
 /**
  * Simple implementation of {@link BaseFigure}

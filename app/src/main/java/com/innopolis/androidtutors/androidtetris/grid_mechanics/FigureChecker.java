@@ -1,4 +1,6 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.grid_mechanics;
+
+import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
 
 /**
  * Interface that is responsible for checking conditions for {@link BaseFigure}

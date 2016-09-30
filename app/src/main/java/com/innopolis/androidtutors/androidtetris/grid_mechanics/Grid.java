@@ -1,4 +1,6 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.grid_mechanics;
+
+import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 
 /**
  * Interface that gives information about a grid

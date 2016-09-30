@@ -1,4 +1,6 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.representation;
+
+import com.innopolis.androidtutors.androidtetris.grid_mechanics.GameGrid;
 
 /**
  * Visual representation of blocks in {@link GameGrid}
