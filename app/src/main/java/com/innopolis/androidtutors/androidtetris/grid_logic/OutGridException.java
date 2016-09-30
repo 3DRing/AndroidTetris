@@ -1,4 +1,4 @@
-package com.innopolis.androidtutors.androidtetris.grid_mechanics;
+package com.innopolis.androidtutors.androidtetris.grid_logic;
 
 /**
  * Created by Сергей on 30.09.2016.

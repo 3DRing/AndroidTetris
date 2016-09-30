@@ -1,4 +1,4 @@
-package com.innopolis.androidtutors.androidtetris.grid_mechanics;
+package com.innopolis.androidtutors.androidtetris.grid_logic;
 
 import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 

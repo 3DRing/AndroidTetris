@@ -3,10 +3,10 @@ package com.innopolis.androidtutors.androidtetris;
 import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
 import com.innopolis.androidtutors.androidtetris.geometry.SimpleFigure;
 import com.innopolis.androidtutors.androidtetris.geometry.TFigure;
-import com.innopolis.androidtutors.androidtetris.grid_mechanics.FigureChecker;
-import com.innopolis.androidtutors.androidtetris.grid_mechanics.GameGrid;
-import com.innopolis.androidtutors.androidtetris.grid_mechanics.Grid;
-import com.innopolis.androidtutors.androidtetris.grid_mechanics.OutGridException;
+import com.innopolis.androidtutors.androidtetris.grid_logic.FigureChecker;
+import com.innopolis.androidtutors.androidtetris.grid_logic.GameGrid;
+import com.innopolis.androidtutors.androidtetris.grid_logic.Grid;
+import com.innopolis.androidtutors.androidtetris.grid_logic.OutGridException;
 import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 
 import org.junit.Test;

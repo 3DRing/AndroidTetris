@@ -1,5 +1,6 @@
-package com.innopolis.androidtutors.androidtetris.grid_mechanics;
+package com.innopolis.androidtutors.androidtetris.grid_logic;
 
+import com.innopolis.androidtutors.androidtetris.EndListener;
 import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
 import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 
@@ -16,7 +17,10 @@ public class GameGrid implements Grid {
     private FigureChecker checker;
     private BaseFigure crtFigure;       /** moving figure */
     private Point crtFigurePosition;    /** position of current moving figure on the grid*/
-    private CELL_STATE figureCellState; /** {@link CELL_STATE} that is responsible for presenting only figure (not static building)*/
+    private CELL_STATE figureCellState;
+    private boolean end;
+
+    /** {@link CELL_STATE} that is responsible for presenting only figure (not static building)*/
 
     public GameGrid(int height, int width){
         initializeCellStates(height, width);
@@ -24,6 +28,7 @@ public class GameGrid implements Grid {
 
         figureCellState = CELL_STATE.BLOCK; // default, can be changed (now the same as full building looks like)
         crtFigure = null;
+        this.end = false;
     }
 
     private void initializeDefaultChecker() {
@@ -124,12 +129,20 @@ public class GameGrid implements Grid {
      */
     public boolean moveDown(){
         if(checker.landed(this, crtFigure, crtFigurePosition)){
+            // if landed, check for end condition
+            if(checker.end(this, crtFigure, crtFigurePosition)){
+                end = true;
+            }
             mergeFigureToBuilding();
             crtFigure = null;
             return false;
         }
         crtFigurePosition.setY(crtFigurePosition.getY() + 1);
         return true;
+    }
+
+    public boolean isEnded(){
+        return end;
     }
 
     /**
@@ -225,6 +238,10 @@ public class GameGrid implements Grid {
 
     public CELL_STATE getCellStateUsedForFigure() {
         return figureCellState;
+    }
+
+    public boolean isFigureExist(){
+        return crtFigure != null;
     }
 
     @Override
