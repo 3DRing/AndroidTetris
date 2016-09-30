@@ -1,24 +1,25 @@
 package com.innopolis.androidtutors.androidtetris;
 
-import java.util.Arrays;
-
 /**
+ * Class that responsible for mechanic of building blocks
+ * and moving {@link BaseFigure} on the grid
+ *
  * Created by Сергей on 30.09.2016.
  */
 
 public class GameGrid {
 
-    private CELL_STATE[][] state;
+    private CELL_STATE[][] state;       /** keeps static states of all cells (moving figure is not included) */
     private FigureChecker checker;
-    private BaseFigure crtFigure;
-    private Point crtFigurePosition;
-    private CELL_STATE figureCellState;
+    private BaseFigure crtFigure;       /** moving figure */
+    private Point crtFigurePosition;    /** position of current moving figure on the grid*/
+    private CELL_STATE figureCellState; /** {@link CELL_STATE} that is responsible for presenting only figure (not static building)*/
 
     public GameGrid(int height, int width){
         initializeCellStates(height, width);
         initializeDefaultChecker();
 
-        figureCellState = CELL_STATE.BLOCK; // default, can be changed
+        figureCellState = CELL_STATE.BLOCK; // default, can be changed (now the same as full building looks like)
         crtFigure = null;
     }
 
@@ -43,6 +44,11 @@ public class GameGrid {
             public boolean landed(GameGrid grid, BaseFigure figure, Point figurePosition) {
                 return false;
             }
+
+            @Override
+            public int[] canBeErased(GameGrid grid) {
+                return new int[0];
+            }
         };
     }
 
@@ -64,6 +70,13 @@ public class GameGrid {
         this.checker = checker;
     }
 
+    /**
+     * Adds a figure on the grid.
+     * If figure has been already added - replace it
+     *
+     * @param figure {@link BaseFigure}
+     * @param figurePosition initial position of the figure
+     */
     public void addFigure(BaseFigure figure, Point figurePosition){
         if(figure == null){
             throw new IllegalArgumentException("figure must be not null");
@@ -75,6 +88,11 @@ public class GameGrid {
         this.crtFigurePosition = figurePosition;
     }
 
+    /**
+     * Moves figure to the left
+     *
+     * @throws OutGridException if checker does not allow to move
+     */
     public void moveFigureLeft() throws OutGridException {
         if(checker.outLeft(this,crtFigure,crtFigurePosition)){
             throw new OutGridException("Can't move figure left any further");
@@ -82,6 +100,11 @@ public class GameGrid {
         crtFigurePosition.setX(crtFigurePosition.getX() - 1);
     }
 
+    /**
+     * Moves figure to the right
+     *
+     * @throws OutGridException if checker does not allow to move
+     */
     public void moveFigureRight() throws OutGridException {
         if(checker.outRight(this, crtFigure, crtFigurePosition)){
             throw new OutGridException("Can't move figure right any further");
@@ -89,6 +112,13 @@ public class GameGrid {
         crtFigurePosition.setX(crtFigurePosition.getX() + 1);
     }
 
+    /**
+     * Moves current {@link BaseFigure} down while it is available
+     *
+     * @return false when figure can't be moved more.
+     * In this case figure automatically converts into a building.
+     * True if movement was successful.
+     */
     public boolean moveDown(){
         if(checker.landed(this, crtFigure, crtFigurePosition)){
             mergeFigureToBuilding();
@@ -99,7 +129,15 @@ public class GameGrid {
         return true;
     }
 
-    public Point getGridPositionByFigurePosition(int figurePositionX, int figurePositionY){
+    /**
+     * Knowing position of one block of a {@link BaseFigure}
+     * gives an absolute position of this block in the {@link GameGrid}
+     *
+     * @param figurePositionX
+     * @param figurePositionY
+     * @return absolute position in the {@link GameGrid}
+     */
+    private Point getGridPositionByFigureBlockPosition(int figurePositionX, int figurePositionY){
         if(crtFigure == null){
             throw new IllegalStateException("Can't get grid position by figure because figure is null");
         }
@@ -125,6 +163,12 @@ public class GameGrid {
         return newArray;
     }
 
+    /**
+     * Full visual representation of grid (including figure) in the current moment
+     * Result is a building itself and figure
+     *
+     * @return array of {@link CELL_STATE}s.
+     */
     public CELL_STATE[][] getStatesAndFigure() {
         CELL_STATE[][] result = fullCopyCellState(state);
         if (crtFigure != null){
@@ -133,10 +177,16 @@ public class GameGrid {
         return result;
     }
 
+    /**
+     * Merges figure to the visaul representation of the grid
+     *
+     * @param state array that will be used for merging
+     * @param stateForBlock how cells of figure will look like
+     */
     private void mergeFigureToState(CELL_STATE[][] state, CELL_STATE stateForBlock) {
         for (int i = 0; i < crtFigure.getHeight(); i++) {
             for (int j = 0; j < crtFigure.getWidth(); j++) {
-                Point globalBlockPosition = getGridPositionByFigurePosition(j, i);
+                Point globalBlockPosition = getGridPositionByFigureBlockPosition(j, i);
 
                 // might be rewritten without exceptions:
                 // in this case we have to ignore positions that are out of the grid
@@ -165,7 +215,7 @@ public class GameGrid {
         return state[0].length;
     }
 
-    public CELL_STATE getFigureCellState() {
+    public CELL_STATE getCellStateUsedForFigure() {
         return figureCellState;
     }
 

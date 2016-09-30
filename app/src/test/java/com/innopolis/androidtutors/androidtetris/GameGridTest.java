@@ -1,7 +1,5 @@
 package com.innopolis.androidtutors.androidtetris;
 
-import android.graphics.Point;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -34,7 +32,7 @@ public class GameGridTest {
         int width = 14;     // can be modified
         GameGrid grid = new GameGrid(height, width);
 
-        CELL_STATE stateForFigure = grid.getFigureCellState();
+        CELL_STATE stateForFigure = grid.getCellStateUsedForFigure();
 
         for (int y = 0; y < grid.getHeight(); y++) {
             for (int x = 0; x < grid.getWidth(); x++) {
@@ -61,7 +59,7 @@ public class GameGridTest {
     }
 
     private void moveFigure(GameGrid grid, int initialX, int initialY, int horizontalOffset, int h) {
-        CELL_STATE stateForFigure = grid.getFigureCellState();
+        CELL_STATE stateForFigure = grid.getCellStateUsedForFigure();
         CELL_STATE[][] states = grid.getStatesAndFigure();
         for (int i = 0; i < grid.getHeight(); i++) {
             for (int j = 0; j < grid.getWidth(); j++) {
@@ -143,6 +141,11 @@ public class GameGridTest {
             @Override
             public boolean landed(GameGrid grid, BaseFigure figure, GameGrid.Point figurePosition) {
                 return true;
+            }
+
+            @Override
+            public int[] canBeErased(GameGrid grid) {
+                return new int[0];
             }
         });
         grid.addFigure(new TFigure(), new GameGrid.Point(0,2));
