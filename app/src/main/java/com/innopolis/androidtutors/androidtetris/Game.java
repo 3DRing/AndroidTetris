@@ -6,6 +6,7 @@ import android.widget.Chronometer;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.EndListener;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.FigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.GameResult;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.SimpleFigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.Tick;
 import com.innopolis.androidtutors.androidtetris.grid_logic.FigureChecker;
 import com.innopolis.androidtutors.androidtetris.grid_logic.GameGrid;
@@ -38,14 +39,18 @@ public class Game {
     private enum MOVE_DIRECTION {NONE, LEFT, RIGHT}
     private MOVE_DIRECTION direction;
 
-    public Game(Context context, UIGrid uiGrid, FigureGenerator generator){
+    public Game(Context context, UIGrid uiGrid){
         this.context = context;
         initializeGrid(null);
         initializeUIGrid(uiGrid);
-        initializeFigureGenerator(generator);
+        initializeFigureGenerator(new SimpleFigureGenerator());
         initializeTick();
 
         playing = false;
+    }
+
+    public void setFigureGenerator(FigureGenerator generator){
+        this.generator = generator;
     }
 
     public void setEndListener(EndListener listener){
@@ -67,7 +72,7 @@ public class Game {
     }
 
     private void initializeFigureGenerator(FigureGenerator generator){
-        this.generator = generator;
+        this.setFigureGenerator(generator);
     }
 
     private void initializeTick(){
