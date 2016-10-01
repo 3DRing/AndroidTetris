@@ -1,6 +1,5 @@
 package com.innopolis.androidtutors.androidtetris.grid_logic;
 
-import com.innopolis.androidtutors.androidtetris.EndListener;
 import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
 import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 
@@ -50,7 +49,7 @@ public class GameGrid implements Grid {
 
             @Override
             public boolean landed(Grid grid, BaseFigure figure, Point figurePosition) {
-                return false;
+                return figurePosition.getY() == grid.getHeight() - 1; // simple checker, checks only if figure achieves a ground
             }
 
             @Override
@@ -194,7 +193,7 @@ public class GameGrid implements Grid {
     }
 
     /**
-     * Merges figure to the visaul representation of the grid
+     * Merges figure to the visual representation of the grid
      *
      * @param state array that will be used for merging
      * @param stateForBlock how cells of figure will look like
@@ -206,17 +205,26 @@ public class GameGrid implements Grid {
 
                 // might be rewritten without exceptions:
                 // in this case we have to ignore positions that are out of the grid
-                if(globalBlockPosition.getX() < 0 || globalBlockPosition.getX() >= getWidth()){
+/*                if(globalBlockPosition.getX() < 0 || globalBlockPosition.getX() >= getWidth()){
                     throw new IllegalStateException("Figure is partially out of grid. Problem might be in class Checker");
                 }
                 if(globalBlockPosition.getY() < 0 || globalBlockPosition.getY() >= getHeight()){
                     throw new IllegalStateException("Figure is partially out of grid. Problem might be in class Checker");
+                }*/
+
+                // implementation without exceptions
+                if(globalBlockPosition.getX() < 0 || globalBlockPosition.getX() >= getWidth()){
+                    continue;
+                }
+                if(globalBlockPosition.getY() < 0 || globalBlockPosition.getY() >= getHeight()){
+                    continue;
                 }
 
                 boolean blockState = crtFigure.getBlockState(i, j);
                 state[globalBlockPosition.getY()][globalBlockPosition.getX()] = blockState ? stateForBlock : CELL_STATE.EMPTY;
             }
         }
+
     }
 
     private void mergeFigureToBuilding(){

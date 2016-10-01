@@ -1,4 +1,4 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.gameplay_logic;
 
 /**
  * Created by Сергей on 30.09.2016.

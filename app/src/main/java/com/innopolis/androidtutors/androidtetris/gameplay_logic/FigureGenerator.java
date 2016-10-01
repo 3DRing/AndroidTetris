@@ -1,4 +1,4 @@
-package com.innopolis.androidtutors.androidtetris;
+package com.innopolis.androidtutors.androidtetris.gameplay_logic;
 
 import com.innopolis.androidtutors.androidtetris.geometry.BaseFigure;
 import com.innopolis.androidtutors.androidtetris.grid_logic.GameGrid;

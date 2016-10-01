@@ -1,20 +1,31 @@
 package com.innopolis.androidtutors.androidtetris;
 
+import android.content.Context;
+import android.widget.Chronometer;
+
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.EndListener;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.FigureGenerator;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.GameResult;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.Tick;
 import com.innopolis.androidtutors.androidtetris.grid_logic.FigureChecker;
 import com.innopolis.androidtutors.androidtetris.grid_logic.GameGrid;
 import com.innopolis.androidtutors.androidtetris.grid_logic.OutGridException;
 import com.innopolis.androidtutors.androidtetris.representation.UIGrid;
 
 /**
+ * The main class responsible for the gameplay
+ *
  * Created by Сергей on 30.09.2016.
  */
 
 public class Game {
 
+    private Context context;
+
     private int DEFAULT_HEIGHT = 10;
     private int DEFAULT_WIDTH = 10;
 
-    private TestTimer timer;
+    private Tick tick;
     private UIGrid uiGrid;
 
     private FigureGenerator generator;
@@ -27,11 +38,12 @@ public class Game {
     private enum MOVE_DIRECTION {NONE, LEFT, RIGHT}
     private MOVE_DIRECTION direction;
 
-    public Game(UIGrid uiGrid, FigureGenerator generator){
+    public Game(Context context, UIGrid uiGrid, FigureGenerator generator){
+        this.context = context;
         initializeGrid(null);
         initializeUIGrid(uiGrid);
         initializeFigureGenerator(generator);
-        initializeTimer();
+        initializeTick();
 
         playing = false;
     }
@@ -58,10 +70,11 @@ public class Game {
         this.generator = generator;
     }
 
-    private void initializeTimer(){
-        this.timer = new TestTimer(new TestTimer.TickListener() {
+    private void initializeTick(){
+        this.tick = new Tick(context);
+        this.tick.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
-            public void tick() {
+            public void onChronometerTick(Chronometer chronometer) {
                 // main logic of moving figures
                 if(!grid.isFigureExist()){
                     grid.addFigure(generator.getNextFigure(), generator.getInitialPosition(grid.getWidth()));
@@ -92,8 +105,11 @@ public class Game {
                     }
                 }
                 direction = MOVE_DIRECTION.NONE;
+
+                uiGrid.update(grid.getStatesAndFigure());
             }
         });
+
     }
 
     private void checkReady(){
@@ -105,11 +121,11 @@ public class Game {
     public void start(){
         checkReady();
         playing = true;
-        timer.start();
+        tick.start();
     }
 
     public void stop(){
-        timer.stop();
+        tick.stop();
         playing = false;
     }
 
