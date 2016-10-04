@@ -6,8 +6,10 @@ import android.widget.Chronometer;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.EndListener;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.FigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.GameResult;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.OnTickListener;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.SimpleFigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.Tick;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.Ticker;
 import com.innopolis.androidtutors.androidtetris.grid_logic.FigureChecker;
 import com.innopolis.androidtutors.androidtetris.grid_logic.GameGrid;
 import com.innopolis.androidtutors.androidtetris.grid_logic.OutGridException;
@@ -69,6 +71,7 @@ public class Game {
 
     private void initializeUIGrid(UIGrid uiGrid){
         this.uiGrid = uiGrid;
+        this.uiGrid.initialize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     private void initializeFigureGenerator(FigureGenerator generator){
@@ -76,11 +79,10 @@ public class Game {
     }
 
     private void initializeTick(){
-        this.tick = new Tick(context);
-        this.tick.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+        this.tick = new Ticker();
+        this.tick.setOnTickListener(new OnTickListener() {
             @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                // main logic of moving figures
+            public void onTick() {
                 if(!grid.isFigureExist()){
                     grid.addFigure(generator.getNextFigure(), generator.getInitialPosition(grid.getWidth()));
                 }else {
@@ -126,6 +128,7 @@ public class Game {
     public void start(){
         checkReady();
         playing = true;
+
         tick.start();
     }
 
