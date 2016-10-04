@@ -71,7 +71,7 @@ public class Game {
 
     private void initializeUIGrid(UIGrid uiGrid){
         this.uiGrid = uiGrid;
-        this.uiGrid.initialize(DEFAULT_WIDTH);
+        this.uiGrid.initialize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
     }
 
     private void initializeFigureGenerator(FigureGenerator generator){

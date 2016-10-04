@@ -17,7 +17,8 @@ public interface UIGrid {
     /**
      * Initialize grid on a screen
      *
-     * @param width cells in a row
+     * @param widthLength cells in a row
+     * @param heightLength cells in a column
      */
-    void initialize(int width);
+    void initialize(int widthLength, int heightLength);
 }

@@ -28,7 +28,7 @@ public class UIGridImpl implements UIGrid{
     }
 
     @Override
-    public void initialize(int width) {
+    public void initialize(int widthLength, int heightLength) {
         this.adapter = new SquaredAdapter(context);
 
         RecyclerView.LayoutParams params =
@@ -36,7 +36,7 @@ public class UIGridImpl implements UIGrid{
         this.rv = new RecyclerView(context);
         this.rv.setLayoutParams(params);
 
-        NotScrollableGridLayoutManager glm = new NotScrollableGridLayoutManager(container.getContext(),width);
+        NotScrollableGridLayoutManager glm = new NotScrollableGridLayoutManager(container.getContext(),widthLength);
         rv.setLayoutManager(glm);
 
         rv.setBackgroundColor(Color.CYAN);

@@ -10,8 +10,13 @@ import android.view.View;
  * Created by Сергей on 02.10.2016.
  */
 public class SquaredRecyclerView extends RecyclerView {
-    public SquaredRecyclerView(Context context) {
+    private int widthLength;
+    private int heightLength;
+
+    public SquaredRecyclerView(Context context, int widthLength, int heightLength) {
         super(context);
+        this.widthLength = widthLength;
+        this.heightLength = heightLength;
     }
 
     public SquaredRecyclerView(Context context, @Nullable AttributeSet attrs) {
@@ -26,7 +31,13 @@ public class SquaredRecyclerView extends RecyclerView {
     protected void onMeasure(int widthSpec, int heightSpec) {
         int width = View.MeasureSpec.getSize(widthSpec);
         int height = View.MeasureSpec.getSize(heightSpec);
-        int size = width > height ? height : width;
-        setMeasuredDimension(size, size);
+        int unit;
+        if(widthLength < heightLength){
+            unit = width / widthLength;
+        }else{
+            unit = height / heightLength;
+        }
+        setMeasuredDimension(widthLength * unit, heightLength * unit);
+
     }
 }
