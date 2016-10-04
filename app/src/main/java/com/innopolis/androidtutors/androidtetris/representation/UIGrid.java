@@ -13,4 +13,11 @@ public interface UIGrid {
      *             should be translated in some user-friendly form
      */
     void update(CELL_STATE[][] grid);
+
+    /**
+     * Initialize grid on a screen
+     *
+     * @param width cells in a row
+     */
+    void initialize(int width);
 }
