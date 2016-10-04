@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 public class UIGridImpl implements UIGrid{
 
     private SquaredAdapter adapter;
-    private SquaredRecyclerView rv;
+    private RecyclerView rv;
 
     private Context context;
     private ViewGroup container;
@@ -32,8 +32,8 @@ public class UIGridImpl implements UIGrid{
         this.adapter = new SquaredAdapter(context);
 
         RecyclerView.LayoutParams params =
-                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        this.rv = new SquaredRecyclerView(context);
+                new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        this.rv = new RecyclerView(context);
         this.rv.setLayoutParams(params);
 
         NotScrollableGridLayoutManager glm = new NotScrollableGridLayoutManager(container.getContext(),width);

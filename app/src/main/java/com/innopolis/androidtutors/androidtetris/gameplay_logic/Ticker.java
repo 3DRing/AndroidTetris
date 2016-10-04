@@ -8,8 +8,8 @@ import android.os.CountDownTimer;
 
 public class Ticker implements Tick{
 
-    private final long DEFAULT_COUNT_DOWN_INTERVAL = 1000l;
-    private final long DEFAULT_MILLIS_IN_FUTURE = 10000l;
+    private final long DEFAULT_COUNT_DOWN_INTERVAL = 500l;
+    private final long DEFAULT_MILLIS_IN_FUTURE = 100000l;
 
     private CountDownTimer timer;
     private OnTickListener tickListener;
