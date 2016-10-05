@@ -240,6 +240,11 @@ public class GameGrid implements Grid {
         return state[positionY][positionX];
     }
 
+    @Override
+    public CELL_STATE getState(Point point) {
+        return getState(point.getX(), point.getY());
+    }
+
     public int getWidth() {
         return state[0].length;
     }

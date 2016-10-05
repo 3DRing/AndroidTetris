@@ -11,4 +11,5 @@ public interface Grid {
     int getWidth();
     int getHeight();
     CELL_STATE getState(int positionX, int positionY);
+    CELL_STATE getState(GameGrid.Point point);
 }

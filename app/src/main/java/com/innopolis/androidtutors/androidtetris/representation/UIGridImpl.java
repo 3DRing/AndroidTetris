@@ -39,7 +39,7 @@ public class UIGridImpl implements UIGrid{
         NotScrollableGridLayoutManager glm = new NotScrollableGridLayoutManager(container.getContext(),widthLength);
         rv.setLayoutManager(glm);
 
-        rv.setBackgroundColor(Color.CYAN);
+        rv.setBackgroundColor(Color.LTGRAY);
 
         container.addView(rv);
         rv.setAdapter(adapter);

@@ -7,10 +7,12 @@ import com.innopolis.androidtutors.androidtetris.gameplay_logic.EndListener;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.FigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.GameResult;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.OnTickListener;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.RandomFigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.SimpleFigureGenerator;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.Tick;
 import com.innopolis.androidtutors.androidtetris.gameplay_logic.Ticker;
 import com.innopolis.androidtutors.androidtetris.grid_logic.FigureChecker;
+import com.innopolis.androidtutors.androidtetris.grid_logic.FigureCheckerImpl;
 import com.innopolis.androidtutors.androidtetris.grid_logic.GameGrid;
 import com.innopolis.androidtutors.androidtetris.grid_logic.OutGridException;
 import com.innopolis.androidtutors.androidtetris.representation.UIGrid;
@@ -43,9 +45,9 @@ public class Game {
 
     public Game(Context context, UIGrid uiGrid){
         this.context = context;
-        initializeGrid(null);
+        initializeGrid(new FigureCheckerImpl());
         initializeUIGrid(uiGrid);
-        initializeFigureGenerator(new SimpleFigureGenerator());
+        initializeFigureGenerator(new RandomFigureGenerator());
         initializeTick();
 
         playing = false;
