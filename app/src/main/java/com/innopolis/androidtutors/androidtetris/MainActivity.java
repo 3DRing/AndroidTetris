@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.EndListener;
+import com.innopolis.androidtutors.androidtetris.gameplay_logic.GameResult;
 import com.innopolis.androidtutors.androidtetris.representation.CELL_STATE;
 import com.innopolis.androidtutors.androidtetris.representation.NotScrollableGridLayoutManager;
 import com.innopolis.androidtutors.androidtetris.representation.SquaredAdapter;
@@ -39,6 +42,13 @@ public class MainActivity extends Activity {
         uiGrid = new UIGridImpl(this, container);
 
         game = new Game(this,uiGrid);
+        game.setEndListener(new EndListener() {
+            @Override
+            public void end(GameResult result) {
+                game.stop();
+                Toast.makeText(MainActivity.this, "End", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         leftBtn = (Button) findViewById(R.id.leftBtn);
         leftBtn.setOnClickListener(new View.OnClickListener() {
